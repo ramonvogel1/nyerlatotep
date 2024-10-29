@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link href="style_and_grace.css" rel="stylesheet">
+    <style>
+        body {
+        overflow-x: hidden;
+        }
+
+        .disabled-link {
+        pointer-events: none;
+        opacity: 0.5;
+        }
+
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+        <div class="container" style="text-align: center;margin-top: 20px; margin-bottom: 10px;">
+            <h1>PROJETO NYERLATOTEP</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="text-align: center;">
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow mb-4" style="margin-top: 10px; margin-right: 20px; text-align: center;">
+                    <div class="card-header py-3">
+                        <h6 class="text-dark fw-bold m-0" style="text-align: center;">CONFIGURAÇÃO</h6>
+                    </div>
+                    <div class="card-body" style="text-align: center;">
+                        <div class="btn-group" style="margin-bottom: 10px;">
+                            <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                OPÇÕES
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="display" style="margin-left: 10px;" disabled>PEÇA X</button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" id="peca1" href="#/peca1">PEÇA 1</a></li>
+                                <li><a class="dropdown-item" id="peca2" href="#/peca2">PEÇA 2</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <button type="button" id="dropdownVelocidade" class="btn btn-dark dropdown-toggle" style="margin-left: 10px; margin-bottom: 10px; width: 135px;" data-bs-toggle="dropdown" aria-expanded="false">
+                                VELOCIDADE
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" id="slow" href="#/lento">PRECISO</a></li>
+                                <li><a class="dropdown-item" id="mid" href="#/medio">BALANCEADO</a></li>
+                                <li><a class="dropdown-item" id="fast" href="#/rapido">RÁPIDO</a></li>
+                            </ul>
+                        </div>                        
+                        <div>
+                            <a href="#/toggle-on" class="btn btn-danger" id="buttonOn" style="margin-bottom: 10px; margin-right: 10px;">
+                                LIGA
+                            </a>
+                            <a href="#/toggle-off" type="button" class="btn btn-danger" id="buttonOff" style="margin-bottom: 10px;" disabled>
+                                DESLIGA
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                    <div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <script>
+        let speed;
+        let option;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var btnOff = document.getElementById('buttonOff');
+            btnOff.disabled = true; 
+            document.getElementById("buttonOff").classList.add("disabled-link");
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('#dropdownVelocidade + .dropdown-menu .dropdown-item').forEach(item => {
+                item.addEventListener('click', event => {
+                    const dropdownVelocidade = document.getElementById('dropdownVelocidade');
+                    if (dropdownVelocidade) {
+                        dropdownVelocidade.innerText = event.target.innerText;
+                        speed = true;
+                    }
+                });
+            });
+        });
+
+        document.getElementById("peca1").addEventListener("click", function(){
+            console.log("salvar peça 1");
+            let display = document.getElementById("display");
+            display.innerHTML = "PEÇA 1";
+            option = 1;
+        });
+
+        document.getElementById("peca2").addEventListener("click", function(){
+            console.log("salvar peça 2");
+            let display = document.getElementById("display");
+            display.innerHTML = "PEÇA 2";
+            option = 2;
+        });
+
+        document.getElementById("buttonOn").addEventListener("click", function(){
+            handleToggleOn()
+        })
+
+        document.getElementById("buttonOff").addEventListener("click", function(){
+            handleToggleOff();
+        })
+
+
+        function handleToggleOn(){
+            if(speed == true && option >= 1){
+            console.log("buttonOn");
+            document.getElementById("buttonOn").classList.add("disabled-link");
+            document.getElementById("buttonOff").classList.remove("disabled-link");
+            } 
+            else{
+                alert("Falta informações para ligar");
+            }
+        }
+
+        function handleToggleOff(){
+            speed = null;
+            option = null;
+
+            console.log("buttonOff");
+            document.getElementById("buttonOff").classList.add("disabled-link");
+            document.getElementById("buttonOn").classList.remove("disabled-link");
+
+            let display = document.getElementById("display");
+            display.innerHTML = "PEÇA X";
+            let dropdownVelocidade = document.getElementById('dropdownVelocidade');
+            dropdownVelocidade.innerText = 'VELOCIDADE';
+        }
+    </script>
+</body>
+</html>
